@@ -1,2 +1,3 @@
-- hibernate
+- prime faces
 - pretty faces
+- resource bundle

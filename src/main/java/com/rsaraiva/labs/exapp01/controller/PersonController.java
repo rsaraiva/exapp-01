@@ -11,7 +11,6 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 @Named(value = "person")
 @ViewScoped
@@ -23,22 +22,39 @@ public class PersonController implements java.io.Serializable {
     private List<Person> personList = new ArrayList();
     
     @PostConstruct
-    private void seeInjections() {
-        System.out.println(em);
-        Query query = em.createQuery("select p from Person p order by p.name");
-        System.out.println(query);
-        personList = query.getResultList();
-        System.out.println(personList);
-        for (Person person1 : personList) {
-            System.out.println(person1);
-        }
+    private void init() {
+        updatePersonList();
     }
     
     public void save() {
         em.getTransaction().begin();
-        em.persist(person);
+        em.merge(person);
         em.getTransaction().commit();
-        
+        resetPerson();
+        updatePersonList();
+    }
+    
+    public void edit() {
+        person = em.find(Person.class, person.getId());
+    }
+    
+    public void remove() {
+        em.getTransaction().begin();
+        em.remove(person);
+        em.getTransaction().commit();
+        resetPerson();
+        updatePersonList();
+    }
+    
+    public void cancel() {
+        resetPerson();
+    }
+    
+    private void updatePersonList() {
+        personList = em.createQuery("select p from Person p order by p.name").getResultList();
+    }
+    
+    private void resetPerson() {
         person = new Person();
     }
 
