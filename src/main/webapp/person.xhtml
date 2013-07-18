@@ -7,6 +7,25 @@
     </h:head>
     <h:body>
         <h1>Person</h1>
-        <p>#{person.name}</p>
+        
+        <h:form id="form1">
+            <h:outputLabel for="name" value="Name: "/>
+            <h:inputText id="name" value="#{person.person.name}"/>
+            <h:outputLabel for="age" value="Age: "/>
+            <h:inputText id="age" value="#{person.person.age}"/>
+            <h:commandButton value="Save" action="#{person.save()}"/>
+        </h:form>
+        
+        <h:form>
+            <h:dataTable value="#{person.personList}" var="item">
+                <h:column>
+                    <h:outputText value="#{item.name}"/>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{item.age}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        
     </h:body>
 </html>
