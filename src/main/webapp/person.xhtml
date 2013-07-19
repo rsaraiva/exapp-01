@@ -30,6 +30,11 @@
                         <f:setPropertyActionListener target="#{person.person.id}" value="#{item.id}"/>
                     </h:commandLink>
                 </h:column>
+                <h:column>
+                    <h:commandLink value="remove" action="#{person.remove}">
+                        <f:setPropertyActionListener target="#{person.person.id}" value="#{item.id}"/>
+                    </h:commandLink>
+                </h:column>
             </h:dataTable>
         </h:form>
         

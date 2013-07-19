@@ -1,3 +1,4 @@
 - prime faces
 - pretty faces
 - resource bundle
+- autenticação

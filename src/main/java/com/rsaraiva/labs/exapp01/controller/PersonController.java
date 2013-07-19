@@ -40,7 +40,7 @@ public class PersonController implements java.io.Serializable {
     
     public void remove() {
         em.getTransaction().begin();
-        em.remove(person);
+        em.remove(em.merge(person));
         em.getTransaction().commit();
         resetPerson();
         updatePersonList();
