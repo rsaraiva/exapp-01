@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.enterprise.context.RequestScoped;
 
 @Named(value = "person")
-@ViewScoped
+@RequestScoped
 public class PersonController implements java.io.Serializable {
 
     @Inject private EntityManager em;
@@ -34,13 +34,13 @@ public class PersonController implements java.io.Serializable {
         updatePersonList();
     }
     
-    public void edit() {
-        person = em.find(Person.class, person.getId());
+    public void edit(Integer id) {
+        person = em.find(Person.class, id);
     }
     
-    public void remove() {
+    public void remove(Integer id) {
         em.getTransaction().begin();
-        em.remove(em.merge(person));
+        em.remove(em.find(Person.class, id));
         em.getTransaction().commit();
         resetPerson();
         updatePersonList();
