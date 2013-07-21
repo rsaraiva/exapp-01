@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">              java ee 7 -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Person JSF com Bootstrap</title>
+        <h:outputStylesheet name="bootstrap.min.css" library="css"/>
+        <h:outputStylesheet name="default.css" library="css"/>
+    </h:head>
+    <h:body>
+        <h1>Person JSF com Bootstrap</h1>
+        
+        <h:form id="form1">
+            <h:inputHidden value="#{person.person.id}"/>
+            <h:panelGrid columns="2">
+                <h:panelGrid>
+                    <h:outputLabel for="name" value="Name: "/>
+                    <h:inputText id="name" value="#{person.person.name}"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <h:outputLabel for="age" value="Age: "/>
+                    <h:inputText id="age" value="#{person.person.age}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:commandButton value="Save" action="#{person.save}" styleClass="btn btn-primary">
+                        <f:ajax render="@form :formTable" execute="@form"/>
+                    </h:commandButton>
+                    <h:commandButton value="Cancel" action="#{person.cancel}" styleClass="btn"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+        
+        <h:form id="formTable">
+            <h:dataTable value="#{person.personList}" var="item" styleClass="table table-striped table-bordered" 
+                         columnClasses=",,centered-column,centered-column" rendered="#{not empty person.personList}">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                    <h:outputText value="#{item.age}"/>
+                </h:column>
+                <h:column headerClass="button-column">
+                    <h:commandLink value="edit" action="#{person.edit(item.id)}">
+                        <f:ajax render=":form1"/>
+                    </h:commandLink>
+                </h:column>
+                <h:column headerClass="button-column">
+                    <h:commandLink value="remove" action="#{person.remove(item.id)}">
+                        <f:ajax render="@form"/>
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>

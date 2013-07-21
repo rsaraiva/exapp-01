@@ -1,0 +1,9 @@
+/*!
+ * default css
+ */
+body { margin-left: 10px; margin-right: 10px; }
+
+.button-column { width: 100px; }
+.centered-column { text-align: center !important; }
+.btn { margin-right: 4px; }
+.no-margin { margin: 0px; padding: 0px; }
