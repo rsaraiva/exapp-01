@@ -1,4 +1,5 @@
-- prime faces
 - pretty faces
 - resource bundle
 - autenticação
+- view scoped
+- paginação do servidor
